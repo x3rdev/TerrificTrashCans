@@ -2,16 +2,17 @@ package com.github.x3r.terrific_trash_cans.client.screen;
 
 import com.github.x3r.terrific_trash_cans.TerrificTrashCans;
 import com.github.x3r.terrific_trash_cans.common.menu.EnergyTrashCanMenu;
+import com.github.x3r.terrific_trash_cans.common.menu.FluidTrashCanMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class EnergyTrashCanScreen extends TTCScreen<EnergyTrashCanMenu> {
+public class FluidTrashCanScreen extends TTCScreen<FluidTrashCanMenu> {
 
     private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation(TerrificTrashCans.MOD_ID, "textures/gui/container/trash_can.png");
 
-    public EnergyTrashCanScreen(EnergyTrashCanMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public FluidTrashCanScreen(FluidTrashCanMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 

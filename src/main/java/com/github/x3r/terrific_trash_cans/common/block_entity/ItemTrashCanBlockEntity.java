@@ -1,8 +1,9 @@
 package com.github.x3r.terrific_trash_cans.common.block_entity;
 
 import com.github.x3r.terrific_trash_cans.common.block.TTCEnergyStorage;
+import com.github.x3r.terrific_trash_cans.common.block.TTCFluidHandler;
 import com.github.x3r.terrific_trash_cans.common.block.TTCItemHandler;
-import com.github.x3r.terrific_trash_cans.common.menu.EnergyTrashCanMenu;
+import com.github.x3r.terrific_trash_cans.common.menu.ItemTrashCanMenu;
 import com.github.x3r.terrific_trash_cans.common.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,13 +20,12 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.Nullable;
 
-public class EnergyTrashCanBlockEntity extends TrashCanBlockEntity {
+public class ItemTrashCanBlockEntity extends TrashCanBlockEntity {
 
-    private final LazyOptional<TTCEnergyStorage> energyStorageOptional = LazyOptional.of(() -> new TTCEnergyStorage(Integer.MAX_VALUE, 0, Integer.MAX_VALUE));
     private final LazyOptional<TTCItemHandler> itemHandlerOptional = LazyOptional.of(() -> new TTCItemHandler(1));
 
-    public EnergyTrashCanBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BlockEntityRegistry.ENERGY_TRASH_CAN.get(), pPos, pBlockState);
+    public ItemTrashCanBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(BlockEntityRegistry.ITEM_TRASH_CAN.get(), pPos, pBlockState);
     }
 
     @Override
@@ -39,21 +39,16 @@ public class EnergyTrashCanBlockEntity extends TrashCanBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        energyStorageOptional.ifPresent(energyStorage -> energyStorage.deserializeNBT(pTag));
-        itemHandlerOptional.ifPresent(itemHandler -> itemHandler.deserializeNBT(pTag));
+        itemHandlerOptional.ifPresent(handler -> handler.deserializeNBT(pTag));
     }
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        energyStorageOptional.ifPresent(energyStorage -> tag.put(TTCEnergyStorage.TAG_KEY, energyStorage.serializeNBT()));
-        itemHandlerOptional.ifPresent(itemHandler -> tag.put(TTCItemHandler.TAG_KEY, itemHandler.serializeNBT()));
+        itemHandlerOptional.ifPresent(handler -> tag.put(TTCEnergyStorage.TAG_KEY, handler.serializeNBT()));
     }
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        if(cap.equals(ForgeCapabilities.ENERGY)) {
-            return energyStorageOptional.cast();
-        }
         if(cap.equals(ForgeCapabilities.ITEM_HANDLER)) {
             return itemHandlerOptional.cast();
         }
@@ -63,18 +58,17 @@ public class EnergyTrashCanBlockEntity extends TrashCanBlockEntity {
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        energyStorageOptional.invalidate();
         itemHandlerOptional.invalidate();
     }
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.terrific_trash_cans.energy_trash_can");
+        return Component.translatable("container.terrific_trash_cans.item_trash_can");
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return new EnergyTrashCanMenu(i, inventory, this);
+        return new ItemTrashCanMenu(i, inventory, this);
     }
 }

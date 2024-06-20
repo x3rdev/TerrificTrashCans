@@ -1,10 +1,10 @@
 package com.github.x3r.terrific_trash_cans.common.menu;
 
 import com.github.x3r.terrific_trash_cans.common.block_entity.EnergyTrashCanBlockEntity;
+import com.github.x3r.terrific_trash_cans.common.block_entity.ItemTrashCanBlockEntity;
 import com.github.x3r.terrific_trash_cans.common.registry.MenuTypeRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
@@ -12,15 +12,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.Nullable;
 
-public class EnergyTrashCanMenu extends SyncedMenu<EnergyTrashCanBlockEntity> {
+public class ItemTrashCanMenu extends SyncedMenu<ItemTrashCanBlockEntity> {
 
     private final Container container;
-    public EnergyTrashCanMenu(int pContainerId, Inventory inventory, FriendlyByteBuf buf) {
-        this(pContainerId, inventory, (EnergyTrashCanBlockEntity) SyncedMenu.getBufferBlockEntity(inventory.player.level(), buf));
+    public ItemTrashCanMenu(int pContainerId, Inventory inventory, FriendlyByteBuf buf) {
+        this(pContainerId, inventory, (ItemTrashCanBlockEntity) SyncedMenu.getBufferBlockEntity(inventory.player.level(), buf));
     }
 
-    public EnergyTrashCanMenu(int pContainerId, Inventory inventory, @Nullable EnergyTrashCanBlockEntity blockEntity) {
-        super(MenuTypeRegistry.ENERGY_TRASH_CAN.get(), pContainerId, inventory, blockEntity);
+    public ItemTrashCanMenu(int pContainerId, Inventory inventory, @Nullable ItemTrashCanBlockEntity blockEntity) {
+        super(MenuTypeRegistry.ITEM_TRASH_CAN.get(), pContainerId, inventory, blockEntity);
         this.container = blockEntity;
         checkContainerSize(container, 1);
         this.addSlot(new Slot(container, 0, 80, 30){

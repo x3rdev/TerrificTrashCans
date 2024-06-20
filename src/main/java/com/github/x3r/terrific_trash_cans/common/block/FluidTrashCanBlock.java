@@ -1,6 +1,6 @@
 package com.github.x3r.terrific_trash_cans.common.block;
 
-import com.github.x3r.terrific_trash_cans.common.block_entity.EnergyTrashCanBlockEntity;
+import com.github.x3r.terrific_trash_cans.common.block_entity.FluidTrashCanBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -14,9 +14,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class EnergyTrashCan extends TrashCanBlock {
+public class FluidTrashCanBlock extends TrashCanBlock {
 
-    public EnergyTrashCan() {
+    public FluidTrashCanBlock() {
         super(Properties.of());
     }
 
@@ -26,7 +26,7 @@ public class EnergyTrashCan extends TrashCanBlock {
             return InteractionResult.SUCCESS;
         } else {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-            if (blockentity instanceof EnergyTrashCanBlockEntity) {
+            if (blockentity instanceof FluidTrashCanBlockEntity) {
                 NetworkHooks.openScreen((ServerPlayer) pPlayer, (MenuProvider) blockentity, buf -> buf.writeBlockPos(pPos));
             }
             return InteractionResult.CONSUME;
@@ -36,6 +36,6 @@ public class EnergyTrashCan extends TrashCanBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new EnergyTrashCanBlockEntity(blockPos, blockState);
+        return new FluidTrashCanBlockEntity(blockPos, blockState);
     }
 }

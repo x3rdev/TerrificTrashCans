@@ -17,8 +17,8 @@ import java.util.function.Predicate;
 public class TTCFluidHandler implements IFluidHandler, INBTSerializable<CompoundTag> {
 
     public static final String TAG_KEY = "FluidHandler";
-    private final SynchromaFluidTank[] tanks;
-    public TTCFluidHandler(SynchromaFluidTank[] tanks) {
+    private final FluidTank[] tanks;
+    public TTCFluidHandler(FluidTank[] tanks) {
         this.tanks = tanks;
     }
 
@@ -27,8 +27,8 @@ public class TTCFluidHandler implements IFluidHandler, INBTSerializable<Compound
         return tanks.length;
     }
 
-    public SynchromaFluidTank getTank(int tank) {
-        SynchromaFluidTank fluidTank = null;
+    public FluidTank getTank(int tank) {
+        FluidTank fluidTank = null;
         try {
             fluidTank = tanks[tank];
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -105,14 +105,14 @@ public class TTCFluidHandler implements IFluidHandler, INBTSerializable<Compound
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         ListTag listTag = nbt.getCompound(TTCFluidHandler.TAG_KEY).getList("IFluidHandler", 10);
-        SynchromaFluidTank[] fluidTanks = listTag.stream().map(compoundTag -> {
+        FluidTank[] fluidTanks = listTag.stream().map(compoundTag -> {
             FluidStack stack = FluidStack.loadFluidStackFromNBT((CompoundTag) compoundTag);
             int capacity = ((CompoundTag) compoundTag).getInt("Capacity");
-            SynchromaFluidTank tank = new SynchromaFluidTank(capacity);
+            FluidTank tank = new FluidTank(capacity);
             tank.setFluid(stack);
 
             return tank;
-        }).toArray(SynchromaFluidTank[]::new);
+        }).toArray(FluidTank[]::new);
         for (int i = 0; i < getTanks(); i++) {
             if(getTankCapacity(i) != fluidTanks[i].getCapacity()) {
                 TerrificTrashCans.LOGGER.warn("Tank capacity was saved incorrectly or changed, still attempting to fill tank");
@@ -121,17 +121,17 @@ public class TTCFluidHandler implements IFluidHandler, INBTSerializable<Compound
         }
     }
 
-    public static class SynchromaFluidTank implements IFluidTank {
+    public static class FluidTank implements IFluidTank {
 
         private final int capacity;
         private final Predicate<FluidStack> validator;
         private FluidStack fluid = FluidStack.EMPTY;
 
-        public SynchromaFluidTank(int capacity) {
+        public FluidTank(int capacity) {
             this(capacity, fluidStack -> true);
         }
 
-        public SynchromaFluidTank(int capacity, Predicate<FluidStack> validator) {
+        public FluidTank(int capacity, Predicate<FluidStack> validator) {
             this.capacity = capacity;
             this.validator = validator;
         }

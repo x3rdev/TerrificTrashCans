@@ -18,7 +18,7 @@ public abstract class SyncedMenu<T extends BlockEntity> extends AbstractContaine
         this.blockEntity = blockEntity;
     }
 
-    public @Nullable T getBlockEntity() {
+    public T getBlockEntity() {
         return blockEntity;
     }
 

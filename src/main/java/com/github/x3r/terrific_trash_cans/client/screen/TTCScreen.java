@@ -18,4 +18,6 @@ public abstract class TTCScreen<T extends SyncedMenu> extends AbstractContainerS
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
+
 }
+
