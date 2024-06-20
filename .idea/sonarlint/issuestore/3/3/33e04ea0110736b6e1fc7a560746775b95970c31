@@ -1,31 +1,0 @@
-
-|
-java:S5993"9Change the visibility of this constructor to "protected".(»±´Ô8Íò¸•ƒ2J$858d73a9-4df2-4a9d-87cb-faff084854ec
-
-java:S1874""JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ì‘ĞÁ8Îò¸•ƒ2J$a3e242d9-9fcd-4957-83ae-ebc793877816
-’
-java:S1874'"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ÍİÅ‚üÿÿÿÿ8Îò¸•ƒ2J$2d85fdd5-b78e-4d8a-bf75-2ccc9798536f
-¯
-java:S1128"gRemove this unused import 'com.github.x3r.terrific_trash_cans.common.block_entity.TrashCanBlockEntity'.(¿ŸÇùÿÿÿÿ8¬ˆ°•ƒ2J$2e7c080f-274d-4463-85fc-0b34c7e11d22
-‡
-java:S1128"DRemove this unused import 'net.minecraft.server.level.ServerPlayer'.(‘¤ñ’8¬ˆ°•ƒ2J$9f0c9309-ec2e-401f-8755-dc66d1e2ffa0
-ˆ
-java:S1128"@Remove this unused import 'net.minecraft.world.InteractionHand'.(©ÖóÕúÿÿÿÿ8¬ˆ°•ƒ2J$a890c45f-c5b7-4f5d-9e54-aacc63d2c9df
-Š
-java:S1128"BRemove this unused import 'net.minecraft.world.InteractionResult'.(ˆï¾¥ıÿÿÿÿ8¬ˆ°•ƒ2J$1356fd56-bdab-4844-8f44-53fda2197d1d
-…
-java:S1128"=Remove this unused import 'net.minecraft.world.MenuProvider'.(ò£Ä§úÿÿÿÿ8­ˆ°•ƒ2J$202f042e-1282-4d62-a815-81f2927f6e58
-
-java:S1128	"ERemove this unused import 'net.minecraft.world.entity.player.Player'.(Ë€ı”ÿÿÿÿÿ8­ˆ°•ƒ2J$141410f8-823f-41a1-a33b-889824505734
-„
-java:S1128"<Remove this unused import 'net.minecraft.world.level.Level'.(ÑıÏ¥üÿÿÿÿ8­ˆ°•ƒ2J$3f40aa9e-36e7-48cd-a68f-989771e2481f
-…
-java:S1128"BRemove this unused import 'net.minecraft.world.level.block.Block'.(Úƒ²‚8äî®•ƒ2J$615e7a89-90df-4d9d-a31b-b0d75b11f96a
-’
-java:S1128"ORemove this unused import 'net.minecraft.world.level.block.entity.BlockEntity'.(ı‘óî8Ğò¸•ƒ2J$4102ee31-6dc4-471e-a422-8b09568bb9ef
-‡
-java:S1128"DRemove this unused import 'net.minecraft.world.phys.BlockHitResult'.(è¦ìŠ8Ğò¸•ƒ2J$39f0f704-6835-48d2-ad22-65b3ec97da52
-Œ
-java:S1128"DRemove this unused import 'net.minecraftforge.network.NetworkHooks'.(ûÃ…ûÿÿÿÿ8­ˆ°•ƒ2J$81e045ee-6256-4c4b-8bed-38e07d936fbc
-‚
-java:S1128"?Remove this unused import 'org.jetbrains.annotations.Nullable'.(·½Ç8Ğò¸•ƒ2J$d6d688b9-65d5-4c81-b6ed-114b818c1a97
