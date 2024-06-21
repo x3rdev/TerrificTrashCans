@@ -13,10 +13,10 @@ public class BlockEntityRegistry {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, TerrificTrashCans.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<?>> ENERGY_TRASH_CAN = BLOCK_ENTITY_TYPES.register("energy_trash_can",
+    public static final RegistryObject<BlockEntityType<EnergyTrashCanBlockEntity>> ENERGY_TRASH_CAN = BLOCK_ENTITY_TYPES.register("energy_trash_can",
             () -> BlockEntityType.Builder.of(EnergyTrashCanBlockEntity::new, BlockRegistry.ENERGY_TRASH_CAN.get()).build(null));
-    public static final RegistryObject<BlockEntityType<?>> FLUID_TRASH_CAN = BLOCK_ENTITY_TYPES.register("fluid_trash_can",
+    public static final RegistryObject<BlockEntityType<FluidTrashCanBlockEntity>> FLUID_TRASH_CAN = BLOCK_ENTITY_TYPES.register("fluid_trash_can",
             () -> BlockEntityType.Builder.of(FluidTrashCanBlockEntity::new, BlockRegistry.FLUID_TRASH_CAN.get()).build(null));
-    public static final RegistryObject<BlockEntityType<?>> ITEM_TRASH_CAN = BLOCK_ENTITY_TYPES.register("item_trash_can",
+    public static final RegistryObject<BlockEntityType<ItemTrashCanBlockEntity>> ITEM_TRASH_CAN = BLOCK_ENTITY_TYPES.register("item_trash_can",
             () -> BlockEntityType.Builder.of(ItemTrashCanBlockEntity::new, BlockRegistry.ITEM_TRASH_CAN.get()).build(null));
 }

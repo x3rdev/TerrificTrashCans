@@ -91,8 +91,4 @@ public abstract class TrashCanBlockEntity extends BlockEntity implements Contain
         return tag;
     }
 
-    protected void markUpdated() {
-        this.setChanged();
-        this.getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-    }
 }

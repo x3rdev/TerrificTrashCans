@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -26,6 +27,20 @@ public class EnergyTrashCanBlockEntity extends TrashCanBlockEntity {
 
     public EnergyTrashCanBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.ENERGY_TRASH_CAN.get(), pPos, pBlockState);
+    }
+
+    public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, EnergyTrashCanBlockEntity pBlockEntity) {
+        ItemStack itemStack = pBlockEntity.getItems().get(0);
+        if(!itemStack.isEmpty()) {
+            itemStack.getCapability(ForgeCapabilities.ENERGY).ifPresent(energyStorage -> {
+                energyStorage.extractEnergy(energyStorage.getEnergyStored(), false);
+            });
+        }
+        pBlockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(energyStorage -> {
+            if(energyStorage.getEnergyStored() > 0) {
+                energyStorage.extractEnergy(energyStorage.getEnergyStored(), false);
+            }
+        });
     }
 
     @Override

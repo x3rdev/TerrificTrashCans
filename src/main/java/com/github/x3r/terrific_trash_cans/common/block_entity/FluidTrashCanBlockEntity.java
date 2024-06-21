@@ -1,5 +1,6 @@
 package com.github.x3r.terrific_trash_cans.common.block_entity;
 
+import com.github.x3r.terrific_trash_cans.common.block.FluidTrashCanBlock;
 import com.github.x3r.terrific_trash_cans.common.block.TTCEnergyStorage;
 import com.github.x3r.terrific_trash_cans.common.block.TTCFluidHandler;
 import com.github.x3r.terrific_trash_cans.common.block.TTCItemHandler;
@@ -10,15 +11,23 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class FluidTrashCanBlockEntity extends TrashCanBlockEntity {
 
@@ -29,6 +38,33 @@ public class FluidTrashCanBlockEntity extends TrashCanBlockEntity {
 
     public FluidTrashCanBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.FLUID_TRASH_CAN.get(), pPos, pBlockState);
+    }
+
+    public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, FluidTrashCanBlockEntity pBlockEntity) {
+        ItemStack stack = pBlockEntity.getItems().get(0);
+        if(!stack.isEmpty()) {
+            Optional<IFluidHandlerItem> handler = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).resolve();
+            if(FluidTrashCanBlock.isBucketItem(stack)) {
+                pBlockEntity.getItems().set(0, Items.BUCKET.getDefaultInstance());
+            }
+            if(FluidTrashCanBlock.isBottleItem(stack)) {
+                pBlockEntity.getItems().set(0, Items.GLASS_BOTTLE.getDefaultInstance());
+            }
+            if(handler.isPresent() ) {
+                for (int i = 0; i < handler.get().getTanks(); i++) {
+                    if(handler.get().getFluidInTank(i).getAmount() > 0) {
+                        handler.get().getFluidInTank(i).setAmount(0);
+                    }
+                }
+            }
+        }
+        pBlockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(fluidHandler -> {
+            for (int i = 0; i < fluidHandler.getTanks(); i++) {
+                if(fluidHandler.getFluidInTank(i).getAmount() > 0) {
+                    fluidHandler.getFluidInTank(i).setAmount(0);
+                }
+            }
+        });
     }
 
     @Override
@@ -48,7 +84,7 @@ public class FluidTrashCanBlockEntity extends TrashCanBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        fluidHandlerOptional.ifPresent(handler -> tag.put(TTCEnergyStorage.TAG_KEY, handler.serializeNBT()));
+        fluidHandlerOptional.ifPresent(handler -> tag.put(TTCFluidHandler.TAG_KEY, handler.serializeNBT()));
         itemHandlerOptional.ifPresent(handler -> tag.put(TTCEnergyStorage.TAG_KEY, handler.serializeNBT()));
     }
 
