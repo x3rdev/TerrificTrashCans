@@ -101,6 +101,7 @@ dependencies {
     runtimeOnly(fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.23"))
 
     runtimeOnly fg.deobf("curse.maven:jade-324717:5339264")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

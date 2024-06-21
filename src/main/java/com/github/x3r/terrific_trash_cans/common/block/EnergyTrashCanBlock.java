@@ -16,8 +16,12 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class EnergyTrashCanBlock extends TrashCanBlock {
 
@@ -32,6 +36,13 @@ public class EnergyTrashCanBlock extends TrashCanBlock {
         } else {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);
             if (blockentity instanceof EnergyTrashCanBlockEntity) {
+                Optional<IEnergyStorage> handler = pPlayer.getItemInHand(pHand).getCapability(ForgeCapabilities.ENERGY).resolve();
+                if(handler.isPresent()) {
+                    while (handler.get().extractEnergy(Integer.MAX_VALUE, true) > 0) {
+                        handler.get().extractEnergy(Integer.MAX_VALUE, false);
+                    }
+                    return InteractionResult.CONSUME;
+                }
                 NetworkHooks.openScreen((ServerPlayer) pPlayer, (MenuProvider) blockentity, buf -> buf.writeBlockPos(pPos));
             }
             return InteractionResult.CONSUME;

@@ -24,6 +24,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,10 +52,8 @@ public class FluidTrashCanBlockEntity extends TrashCanBlockEntity {
                 pBlockEntity.getItems().set(0, Items.GLASS_BOTTLE.getDefaultInstance());
             }
             if(handler.isPresent() ) {
-                for (int i = 0; i < handler.get().getTanks(); i++) {
-                    if(handler.get().getFluidInTank(i).getAmount() > 0) {
-                        handler.get().getFluidInTank(i).setAmount(0);
-                    }
+                while (handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE).getAmount() > 0) {
+                    handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
                 }
             }
         }

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class EnergyTrashCanBlockEntity extends TrashCanBlockEntity {
 
-    private final LazyOptional<TTCEnergyStorage> energyStorageOptional = LazyOptional.of(() -> new TTCEnergyStorage(Integer.MAX_VALUE, 0, Integer.MAX_VALUE));
+    private final LazyOptional<TTCEnergyStorage> energyStorageOptional = LazyOptional.of(() -> new TTCEnergyStorage(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE));
     private final LazyOptional<TTCItemHandler> itemHandlerOptional = LazyOptional.of(() -> new TTCItemHandler(1));
 
     public EnergyTrashCanBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -33,7 +33,9 @@ public class EnergyTrashCanBlockEntity extends TrashCanBlockEntity {
         ItemStack itemStack = pBlockEntity.getItems().get(0);
         if(!itemStack.isEmpty()) {
             itemStack.getCapability(ForgeCapabilities.ENERGY).ifPresent(energyStorage -> {
-                energyStorage.extractEnergy(energyStorage.getEnergyStored(), false);
+                while (energyStorage.extractEnergy(Integer.MAX_VALUE, true) > 0) {
+                    energyStorage.extractEnergy(Integer.MAX_VALUE, false);
+                }
             });
         }
         pBlockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(energyStorage -> {

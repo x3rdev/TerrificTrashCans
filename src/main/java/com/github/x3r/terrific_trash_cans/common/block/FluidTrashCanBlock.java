@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
@@ -48,10 +49,8 @@ public class FluidTrashCanBlock extends TrashCanBlock {
                     return InteractionResult.CONSUME;
                 }
                 if(handler.isPresent() ) {
-                    for (int i = 0; i < handler.get().getTanks(); i++) {
-                        if(handler.get().getFluidInTank(i).getAmount() > 0) {
-                            handler.get().getFluidInTank(i).setAmount(0);
-                        }
+                    while (handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE).getAmount() > 0) {
+                        handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
                     }
                     return InteractionResult.CONSUME;
                 }
