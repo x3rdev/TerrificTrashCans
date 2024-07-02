@@ -28,7 +28,7 @@ import java.util.Optional;
 public class FluidTrashCanBlock extends TrashCanBlock {
 
     public FluidTrashCanBlock() {
-        super(Properties.of());
+        super();
     }
 
     @Override
@@ -40,19 +40,21 @@ public class FluidTrashCanBlock extends TrashCanBlock {
             if (blockentity instanceof FluidTrashCanBlockEntity) {
                 ItemStack stack = pPlayer.getItemInHand(pHand);
                 Optional<IFluidHandlerItem> handler = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).resolve();
-                if(isBucketItem(stack)) {
-                    pPlayer.setItemInHand(pHand, Items.BUCKET.getDefaultInstance());
-                    return InteractionResult.CONSUME;
-                }
-                if(isBottleItem(stack)) {
-                    pPlayer.setItemInHand(pHand, Items.GLASS_BOTTLE.getDefaultInstance());
-                    return InteractionResult.CONSUME;
-                }
-                if(handler.isPresent() ) {
-                    while (handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE).getAmount() > 0) {
-                        handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
+                if(!pPlayer.isCrouching()) {
+                    if (isBucketItem(stack)) {
+                        pPlayer.setItemInHand(pHand, Items.BUCKET.getDefaultInstance());
+                        return InteractionResult.CONSUME;
                     }
-                    return InteractionResult.CONSUME;
+                    if (isBottleItem(stack)) {
+                        pPlayer.setItemInHand(pHand, Items.GLASS_BOTTLE.getDefaultInstance());
+                        return InteractionResult.CONSUME;
+                    }
+                    if (handler.isPresent()) {
+                        while (handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE).getAmount() > 0) {
+                            handler.get().drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
+                        }
+                        return InteractionResult.CONSUME;
+                    }
                 }
                 NetworkHooks.openScreen((ServerPlayer) pPlayer, (MenuProvider) blockentity, buf -> buf.writeBlockPos(pPos));
             }

@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class EnergyTrashCanScreen extends TTCScreen<EnergyTrashCanMenu> {
 
-    private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation(TerrificTrashCans.MOD_ID, "textures/gui/container/trash_can.png");
+    private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation(TerrificTrashCans.MOD_ID, "textures/gui/container/energy_trash_can.png");
 
     public EnergyTrashCanScreen(EnergyTrashCanMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

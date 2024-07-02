@@ -1,0 +1,8 @@
+{
+  "values": [
+    "terrific_trash_cans:energy_trash_can",
+    "terrific_trash_cans:fluid_trash_can",
+    "terrific_trash_cans:item_trash_can"
+  ],
+  "replace": false
+}

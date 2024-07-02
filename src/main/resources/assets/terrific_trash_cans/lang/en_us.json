@@ -1,3 +1,9 @@
 {
-  "container.terrific_trash_cans.energy_trash_can": "Energy Trash Can"
+  "container.terrific_trash_cans.energy_trash_can": "Energy Trash Can",
+  "container.terrific_trash_cans.fluid_trash_can": "Fluid Trash Can",
+  "container.terrific_trash_cans.item_trash_can": "Item Trash Can",
+  "block.terrific_trash_cans.energy_trash_can": "Energy Trash Can",
+  "block.terrific_trash_cans.fluid_trash_can": "Fluid Trash Can",
+  "block.terrific_trash_cans.item_trash_can": "Item Trash Can",
+  "itemGroup.terrific_trash_cans": "Terrific Trash Cans"
 }

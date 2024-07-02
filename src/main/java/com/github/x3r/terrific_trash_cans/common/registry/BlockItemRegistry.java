@@ -24,8 +24,8 @@ public class BlockItemRegistry  {
         public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TerrificTrashCans.MOD_ID);
 
         public static final RegistryObject<CreativeModeTab> ITEM_TAB = CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
-                .icon(Items.NAME_TAG::getDefaultInstance)
-                .title(Component.literal("itemGroup." + TerrificTrashCans.MOD_ID))
+                .icon(BlockItemRegistry.ITEM_TRASH_CAN.get()::getDefaultInstance)
+                .title(Component.translatable("itemGroup." + TerrificTrashCans.MOD_ID))
                 .displayItems((displayParameters, output) -> BlockItemRegistry.BLOCK_ITEMS.getEntries().forEach(registryObject -> output.accept(registryObject.get())))
                 .build());
     }

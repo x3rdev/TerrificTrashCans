@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -26,8 +27,8 @@ public abstract class TrashCanBlock extends BaseEntityBlock {
 
     private static VoxelShape shape;
 
-    public TrashCanBlock(Properties pProperties) {
-        super(pProperties);
+    public TrashCanBlock() {
+        super(Properties.of().strength(1.5F, 3.0F).sound(SoundType.LODESTONE));
     }
 
     @Override

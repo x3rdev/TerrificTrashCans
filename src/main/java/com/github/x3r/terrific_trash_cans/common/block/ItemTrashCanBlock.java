@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 public class ItemTrashCanBlock extends TrashCanBlock {
 
     public ItemTrashCanBlock() {
-        super(Properties.of());
+        super();
     }
 
     @Override

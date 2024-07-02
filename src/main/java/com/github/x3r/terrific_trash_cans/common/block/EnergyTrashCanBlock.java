@@ -11,6 +11,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,7 +27,7 @@ import java.util.Optional;
 public class EnergyTrashCanBlock extends TrashCanBlock {
 
     public EnergyTrashCanBlock() {
-        super(Properties.of());
+        super();
     }
 
     @Override
@@ -37,11 +38,13 @@ public class EnergyTrashCanBlock extends TrashCanBlock {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);
             if (blockentity instanceof EnergyTrashCanBlockEntity) {
                 Optional<IEnergyStorage> handler = pPlayer.getItemInHand(pHand).getCapability(ForgeCapabilities.ENERGY).resolve();
-                if(handler.isPresent()) {
-                    while (handler.get().extractEnergy(Integer.MAX_VALUE, true) > 0) {
-                        handler.get().extractEnergy(Integer.MAX_VALUE, false);
+                if(!pPlayer.isCrouching()) {
+                    if (handler.isPresent()) {
+                        while (handler.get().extractEnergy(Integer.MAX_VALUE, true) > 0) {
+                            handler.get().extractEnergy(Integer.MAX_VALUE, false);
+                        }
+                        return InteractionResult.CONSUME;
                     }
-                    return InteractionResult.CONSUME;
                 }
                 NetworkHooks.openScreen((ServerPlayer) pPlayer, (MenuProvider) blockentity, buf -> buf.writeBlockPos(pPos));
             }

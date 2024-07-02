@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class FluidTrashCanScreen extends TTCScreen<FluidTrashCanMenu> {
 
-    private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation(TerrificTrashCans.MOD_ID, "textures/gui/container/trash_can.png");
+    private static final ResourceLocation CONTAINER_LOCATION = new ResourceLocation(TerrificTrashCans.MOD_ID, "textures/gui/container/fluid_trash_can.png");
 
     public FluidTrashCanScreen(FluidTrashCanMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
